@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { Link } from "react-router-dom";
 const Card = ({ product }) => {
   const [liked, setLiked] = useState(false);
-
-  const toggleLike = async() => {
+  const id = product.id
+  const toggleLike = async(e) => {
+    e.stopPropagation();
     try {
       const token = localStorage.getItem('token')
       const config = {
@@ -13,8 +15,6 @@ const Card = ({ product }) => {
             Authorization: `Bearer ${token}`, 
           },
     }
-    const id = product.id
-
       const response = await axios.post(`http://localhost:4000/wishlist/add/${id}`,{},config)
       if(response.status === 200){
         toast.success("Product added to wishlist")
@@ -28,7 +28,7 @@ const Card = ({ product }) => {
       }
     }
   };
-
+ const path = `/productsdetails/${id}`
   const truncateDescription = (description, maxLength) => {
     if (description.length <= maxLength) return description;
     return description.slice(0, maxLength) + '...';
@@ -37,13 +37,16 @@ const Card = ({ product }) => {
   return (
     <>
     <div className="max-w-[1140px] mx-auto mt-10">
+     
       <div className="relative flex flex-col text-gray-700 bg-[#fef8f396] shadow-md shadow-gray-300 bg-clip-border rounded-xl w-80">
         <div className="cursor-pointer relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-72">
+        <Link to={path}>
           <img
             src={product.image}
             alt={product.name}
             className="object-cover w-full h-full"
           />
+          </Link>
           <div className="absolute top-4 right-4" onClick={toggleLike}>
             {liked ? (
               <i className="fas fa-heart text-red-500 text-2xl"></i>
@@ -75,6 +78,7 @@ const Card = ({ product }) => {
           </button>
         </div>
       </div>
+      
     </div>
 
       {/* <div className="max-w-[1140px] mx-auto mt-10 ">
