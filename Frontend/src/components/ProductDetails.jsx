@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { handleCart } from './CartNavigation';
 import toast from 'react-hot-toast'
 const ProductDetails = () => {
+    const BaseUrl = "https://urbancart-b989.onrender.com"
     const {id} = useParams()
     const [data,setData] = useState({})
     const [products, setProducts] = useState([]); 
@@ -10,7 +12,7 @@ const ProductDetails = () => {
     useEffect(()=>{
        const details = async ()=>{
         try {
-            const response = await axios.get(`http://localhost:4000/product/products/${id}`)
+            const response = await axios.get(`${BaseUrl}/product/products/${id}`)
             setData(response.data)
             
         } catch (error) {
@@ -22,7 +24,7 @@ const ProductDetails = () => {
 
     const fetchProductById = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:4000/product/products/${id}`);
+            const response = await axios.get(`${BaseUrl}/product/products/${id}`);
             const data =  response.data;
             return data; 
         } catch (error) {
@@ -40,7 +42,7 @@ const ProductDetails = () => {
     };
 
     const goToCart = () => {
-        navigate('/cart', { state: { products } }); 
+        handleCart(navigate,products)
     };
     return (
         <section className="py-5 my-5">

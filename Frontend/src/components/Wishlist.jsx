@@ -16,7 +16,7 @@ const Wishlist = () => {
   useEffect(() => {
       const getWishlist = async ()=>{
         try {
-          const response = await axios.get("http://localhost:4000/wishlist/getwishlist",config)
+          const response = await axios.get(`https://urbancart-b989.onrender.com/wishlist/getwishlist`,config)
           setWishlist(response.data)
         } catch (error) {
           toast.error("Error Fetching Wishlist")
@@ -31,7 +31,7 @@ const Wishlist = () => {
 
   const handleRemoveFromWishlist = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/wishlist/remove/${id}`,config)
+      await axios.delete(`https://urbancart-b989.onrender.com/wishlist/remove/${id}`,config)
       toast.success("Product removed from wishlist")
     } catch (error) {
       toast.error("Error removing product")

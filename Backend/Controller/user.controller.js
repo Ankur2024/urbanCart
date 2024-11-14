@@ -1,7 +1,7 @@
 import User from "../Model/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-const secret = process.env.SECRET_KEY;
+const secret = process.env.SECRET_key;
 const generateToken = (userId) => {
   return jwt.sign({ id: userId }, secret, { expiresIn: "1h" });
 };
@@ -46,6 +46,7 @@ export const login = async (req, res) => {
     const token = generateToken(user._id);
     res.status(200).json({message:"Login successfull",token})
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: "server error" });
   }
 };

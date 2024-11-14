@@ -33,18 +33,17 @@ const Navbar = () => {
 
     const knownCategories = ["male", "women", "kids", "furniture", "books", "homedecore","sneakers","topwear","bottomwear"];
 
-    const searchTerms = searchQuery.split(" ");
+    const searchTerms = searchQuery.trim().split(" ");
+    console.log("searchterms",searchTerms)
     const possibleCategory = searchTerms[0].toLowerCase();
     let category = "";
     let query = searchQuery;
 
     if (knownCategories.includes(possibleCategory)) {
       category = possibleCategory; 
-      query = searchTerms.slice(1).join(" "); 
-      category = ""; 
+      query = searchTerms.slice(1); 
     }
     else {
-      category = ""; 
       query = searchQuery;
     }
     navigate(`/search?query=${query}&category=${category}`);
@@ -73,7 +72,7 @@ const Navbar = () => {
                   type="text"
                   value={searchQuery}
                   onChange={handleInputChange}
-                  className="bg-gray-100 ml-2 w-[200px] md:w-[260px] lg:w-[390px] focus:ring-0 border-none rounded-full pl-10 pr-4 py-2 focus:outline-none"
+                  className="bg-gray-100 ml-2 w-[150px] md:w-[200px] lg:w-[390px] focus:ring-0 border-none rounded-full pl-10 pr-4 py-2 focus:outline-none"
                   placeholder="Search products..."
                 />
               </div>

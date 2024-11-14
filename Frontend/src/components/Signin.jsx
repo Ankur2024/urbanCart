@@ -24,7 +24,7 @@ const Signin = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/user/login",
+        `https://urbancart-b989.onrender.com/user/login`,
         User
       );
       const token = response.data.token;
@@ -44,7 +44,7 @@ const Signin = () => {
     }
   };
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:4000/auth/google";
+    window.location.href = "https://urbancart-b989.onrender.com/auth/google";
   };
   return (
     <>
@@ -92,7 +92,7 @@ const Signin = () => {
               </div>
               <button
                 type="submit"
-                className="w-full p-[0.5rem] bg-[#007bff] font-bold text-white border-none rounded-md cursor-pointer mt-6"
+                className="w-full p-[0.5rem] bg-blue-600 font-bold text-white border-none rounded-md cursor-pointer mt-6"
               >
                 Log In
               </button>
